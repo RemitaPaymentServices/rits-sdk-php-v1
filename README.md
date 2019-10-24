@@ -18,30 +18,22 @@ SDK works with PHP 7.0 or above.
 ## Configuration
 All merchant credentials needed to use RITs are being setup by instantiating the Credential Class and set the properties in this class accordingly. Properties such as MerchantId, ApiKey, ApiToken, Key, Iv and the Environment needs to be set.
 
-Note: Environment can either be DEMO or LIVE, each of this environment has it respective Credential. Ensure you set the right credentials. By default Environment is TEST.
+Note: Environment can either be $demoUrl or $liveUrl, each of this environment has it respective Credential. Ensure you set the right credentials. By default Environment is TEST.
  ```php
     $merchantId = "KUDI1234";
     $apiKey = "S1VESTEyMzR8S1VESQ==";
-    $requestId = round(microtime(true) * 1000);
-    $timeStamp = "2019-09-11T05:33:39+000000";
-    $apiToken = "dWFBTVVGTGZRUEZaemRvVC8wYVNuRkVTc2REVi9GWGdCMHRvWHNXTnovaz0=";
     $key = "cymsrniuxqtgfzva";
     $iv = "czidrfwqugpaxvkj";
-    $apiHash = hash('sha512', $apiKey . $requestId . $apiToken);
-    $headers = array(
-        'Content-Type: application/json',
-        'API_KEY:' . $apiKey,
-        'REQUEST_ID:' . $requestId,
-        'REQUEST_TS:' . $timeStamp,
-        'API_DETAILS_HASH:' . $apiHash,
-        'MERCHANT_ID:' . $merchantId
-    );
+    $apiToken = "dWFBTVVGTGZRUEZaemRvVC8wYVNuRkVTc2REVi9GWGdCMHRvWHNXTnovaz0=";
+    
     // INIT CREDENTIALS
     $credentials = new Credentials();
     $credentials->url = ApplicationUrl::$demoUrl;
-    $credentials->headers = $headers;
     $credentials->key = $key;
     $credentials->iv = $iv;
+    $credentials->apiToken = $apiToken;
+    $credentials->apiKey = $apiKey;
+    $credentials->merchantId = $merchantId;
     
     RITsGatewayService::init($credentials);
  ```
