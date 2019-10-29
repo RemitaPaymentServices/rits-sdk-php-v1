@@ -1,5 +1,4 @@
 <?php
-
 include 'RITsGatewayService.php';
 
 function initTest()
@@ -29,29 +28,48 @@ class TestRITSServices
     function test()
     {
         RITsGatewayService::init(initTest());
-
-        // ACTIVE BANKS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        $response = RITsGatewayService::activeBanks();
         echo "\n\n";
-        echo "ACTIVE BANKS: ", json_encode($response);
+        echo "// ACTIVE BANKS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+        $response = RITsGatewayService::activeBanks();
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "ARRAY: ", json_encode($response->data->banks[0]);
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // ACCOUNT INQUIRY++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// ACCOUNT INQUIRY++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $accountEnquiry = new AccountEnquiryRequest();
         $accountEnquiry->accountNo = "044332222";
         $accountEnquiry->bankCode = "044";
         $response = RITsGatewayService::accountInquiry($accountEnquiry);
-        echo "\n\n";
-        echo "ACCOUNT INQUIRY: ", json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // ADD ACCOUNT++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// ADD ACCOUNT++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $addAccountRequest = new AddAccountRequest();
         $addAccountRequest->accountNo = "044332222";
         $addAccountRequest->bankCode = "044";
         $response = RITsGatewayService::addAccount($addAccountRequest);
-        echo "\n\n";
-        echo "ADD ACCOUNT: ", json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "ARRAY: ", json_encode($response->data->authParams[0]);
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // VALIDATE ACCOUNT OTP++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// VALIDATE ACCOUNT OTP++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $otp = "1234";
         $card = "0441234567890";
         $remitaTransRef = "MTUxNjYwOTcxNzM3MQ==";
@@ -80,22 +98,37 @@ class TestRITSServices
             $authParams2
         ));
         $response = RITsGatewayService::validateAccountOTP($validateAccountOTPRequest);
-        echo "\n\n";
-        echo "VALIDATE ACCOUNT OTP: ", json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // SINGLE PAYMENT STATUS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// SINGLE PAYMENT STATUS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $transRef = "318187";
         $response = RITsGatewayService::paymentStatusSingle($transRef);
-        echo "\n\n";
-        echo "SINGLE PAYMENT STATUS : ", json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // BULK PAYMENT STATUS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// BULK PAYMENT STATUS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $batchRef = "13441234556";
         $response = RITsGatewayService::paymentStatusBulk($batchRef);
-        echo "\n\n";
-        echo "BULK PAYMENT STATUS: ", json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->bulkPaymentStatusInfo->statusCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response);
 
-        // PAYMENT SINGLE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// PAYMENT SINGLE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $paymentSingleRequest = new PaymentSingleRequest();
         $paymentSingleRequest->fromBank = "044";
         $paymentSingleRequest->debitAccount = "1234565678";
@@ -105,10 +138,15 @@ class TestRITSServices
         $paymentSingleRequest->amount = "5000";
         $paymentSingleRequest->beneficiaryEmail = "qa@test.com";
         $response = RITsGatewayService::singlePayment($paymentSingleRequest);
-        echo "\n\n";
-        echo "PAYMENT SINGLE: ",json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response->data);
 
-        // PAYMENT BULK ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        echo "\n\n";
+        echo "// PAYMENT BULK ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $paymentBulkRequest = new PaymentBulkRequest();
         $paymentDetails1 = new PaymentDetails();
         $paymentDetails1->transRef = rand();
@@ -150,8 +188,12 @@ class TestRITSServices
         ));
 
         $response = RITsGatewayService::bulkPayment($paymentBulkRequest);
-        echo "\n\n";
-        echo "PAYMENT BULK: ",json_encode($response);
+        echo "\n";
+        echo "STATUS: ", $response->status;
+        echo "\n";
+        echo "CODE: ", $response->data->responseCode;
+        echo "\n";
+        echo "DATA: ", json_encode($response);
     }
 }
 
