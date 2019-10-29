@@ -7,8 +7,6 @@ class Credentials
 
     public $apiKey;
 
-    public $apiToken;
-
     public $requestId;
 
     public $timeStamp;
