@@ -7,7 +7,7 @@ class PaymentBulkRequest
 
     // BulkPaymentInfo
     public $paymentDetails = Array(
-        PaymentDetails::class
+        PaymentDetails
     );
 
     // array( PaymentDetails )

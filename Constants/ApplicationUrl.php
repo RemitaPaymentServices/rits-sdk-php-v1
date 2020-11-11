@@ -11,9 +11,7 @@ class ApplicationUrl
 
     public static $activeBanks = "fi/banks";
 
-    public static $addAccount = "merc/account/token/init";
-
-    public static $validateAccountOTP = "merc/account/token/validate";
+    public static $accountBalance = "merc/payment/balance";
 
     public static $paymentStatusSingle = "merc/payment/status";
 

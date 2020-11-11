@@ -1,6 +1,6 @@
 <?php
 
-class AddAccountResponse
+class AccountBalanceResponse
 {
     public $status; //String
     public $data; //Data
