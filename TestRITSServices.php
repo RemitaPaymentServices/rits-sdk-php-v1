@@ -54,18 +54,6 @@ class TestRITSServices
         echo "DATA: ", json_encode($response->data);
 
         echo "\n\n\n";
-        echo "// ACCOUNT BALANCE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-        $accountBalanceRequest = new AccountBalanceRequest();
-        $accountBalanceRequest->accountNumber = "0112637819";
-        $accountBalanceRequest->bankCode = "011";
-        $accountBalanceRequest->transRef = "438880454";
-        $response = RITsGatewayService::accountBalance($accountBalanceRequest);
-        echo "\n";
-        echo "STATUS: ", $response->status;
-        echo "\n";
-        echo "DATA: ", json_encode($response->data);
-
-        echo "\n\n\n";
         echo "// SINGLE PAYMENT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
         $paymentSingleRequest = new PaymentSingleRequest();
         $paymentSingleRequest->fromBank = "058";

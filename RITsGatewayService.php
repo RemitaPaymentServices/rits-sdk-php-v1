@@ -6,8 +6,6 @@ include 'Constants/ApplicationUrl.php';
 
 include 'Response/ActiveBanks/ActiveBanksResponse.php';
 include 'Request/AccountEnquiry/AccountEnquiryRequest.php';
-include 'Request/AccountBalance/AccountBalanceRequest.php';
-include 'Response/AccountBalance/AccountBalanceResponse.php';
 include 'Request/PaymentSingle/PaymentSingleRequest.php';
 include 'Request/PaymentBulk/PaymentBulkRequest.php';
 include 'Request/PaymentBulk/BulkPaymentInfo.php';
@@ -90,42 +88,6 @@ class RITsGatewayService
 
         // POST CALL
         $result = HTTPUtil::postMethod($url, RITsGatewayService::getHeaders(), json_encode($phpArray));
-        return json_decode($result);
-    }
-
-    // ACCOUNT BALANCE
-    public static function accountBalance($accountBalance)
-    {
-        // $url = ApplicationUrl::$accountBalance;
-        $url = RITsGatewayService::$credentials->url . ApplicationUrl::$accountBalance;
-
-        $key = utf8_encode(RITsGatewayService::$credentials->key);
-        $iv = utf8_encode(RITsGatewayService::$credentials->iv);
-
-        // ENCODING DATA
-        $accountNumber = utf8_encode($accountBalance->accountNumber);
-        $bankCode = utf8_encode($accountBalance->bankCode);
-        $transRef = utf8_encode($accountBalance->transRef);
-
-        // ENCRYPTING DATA
-        $accountno_encrypted = AES128CBC::encrypt($accountNumber, $iv, $key);
-        $bankcode_encrypted = AES128CBC::encrypt($bankCode, $iv, $key);
-        $transref_encrypted = AES128CBC::encrypt($transRef, $iv, $key);
-
-        $accountBalance->accountNumber = $accountno_encrypted;
-        $accountBalance->bankCode = $bankcode_encrypted;
-        $accountBalance->transRef = $transref_encrypted;
-
-        // POST BODY
-        $phpArray = array(
-            'accountNumber' => $accountBalance->accountNumber,
-            'bankCode' => $accountBalance->bankCode,
-            'transRef' => $accountBalance->transRef
-        );
-
-        // POST CALL
-        $result = HTTPUtil::postMethod($url, RITsGatewayService::getHeaders(), json_encode($phpArray));
-        
         return json_decode($result);
     }
 
