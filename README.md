@@ -6,13 +6,8 @@ The workflow to getting started on RITs is as follows:
 Register a profile on Remita: You can visit Remita to sign-up if you are not already registered as a merchant/biller on the platform.
 Receive the Remita credentials that certify you as a Biller: SystemSpecs will send you your merchant ID and an API Key necessary to secure your handshake to the Remita platform.
 
-# Installation
-Include the library in your project using composer:
- ```php
-composer require "remita/biller-php"
- ```
 ## Requirements
-SDK works with PHP 7.0 or above.
+SDK works with PHP 5.7 or above.
 
 # Basic Usage
 ## Configuration
