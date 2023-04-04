@@ -32,6 +32,7 @@ Note: Environment can either be $demoUrl or $liveUrl, each of this environment h
     
     RITsGatewayService::init($credentials);
  ```
+ 
 ## CREDENTIALS
 Before calling the RITs methods, the SDK needs to be initialized with the Credentials object, see below:
 ### Credentials attributes
